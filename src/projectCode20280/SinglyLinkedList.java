@@ -147,10 +147,11 @@ public class SinglyLinkedList<E> implements List<E> {
 	
 	public String toString() {
 		String str = "";
-		int listSize = 0;
-		while(listSize < size) {
-			str += get(listSize);
-			listSize++;
+		Node<E> last = head;
+		str += last.getElement();
+		while(last.getNext() != null) {
+			last = last.getNext();
+			str += last.getElement();
 		}
 		return str;
 	}
@@ -177,7 +178,50 @@ public class SinglyLinkedList<E> implements List<E> {
 		for (String s : sll) {
 			System.out.print(s + ", ");
 		}
+		SinglyLinkedList <Integer> ll = new SinglyLinkedList <Integer>();
+		//LinkedList<Integer>ll=newLinkedList<Integer>();
+		ll.addFirst(0);
+		System.out.println(ll);
+		ll.addFirst(1);
+		System.out.println(ll);
+		ll.addFirst(3);
+		System.out.println(ll);
+		ll.addFirst(4);
+		System.out.println(ll);
+		ll.addFirst(5);
+		System.out.println(ll);
+		ll.add(3, 2);
+		System.out.println(ll);
+		ll.addFirst(-100);
+		System.out.println(ll);
+		ll.addLast(100);
+		System.out.println(ll);
+		ll.removeFirst();
+		System.out.println(ll);
+		ll.removeLast();
+		System.out.println(ll);
+		
+		//Removestheiteminthespecifiedindex
+		ll.remove(2);
+		System.out.println(ll);
+		ll.removeFirst();
+		System.out.println(ll);
+		ll.removeLast();
+		System.out.println(ll);
+		ll.removeFirst();
+		System.out.println(ll);
+		ll.addFirst(9999);
+		System.out.println(ll);
+		ll.addFirst(8888);
+		System.out.println(ll);
+		ll.addFirst(7777);
+		System.out.println(ll);
+		System.out.println(ll.get(0));
+		System.out.println(ll.get(1));
+		System.out.println(ll.get(2));
+		System.out.println(ll);
 	}
+	
 
 
 }
