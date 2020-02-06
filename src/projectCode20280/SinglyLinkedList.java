@@ -4,69 +4,155 @@ import java.util.Iterator;
 
 public class SinglyLinkedList<E> implements List<E> {
 
-	private class Node<E> {
-		/// TODO
+	private int size;
+	private Node<E> head;
+	
+	private static class Node<E> {
+		private E element;
+		private Node<E> next;
+		
+		public Node(E e, Node<E> n) {
+			element = e;
+			next = n;
+		}
+		
+		public E getElement() {
+			return element;
+		}
+		
+		public Node<E> getNext() {
+			return next;
+		}
+		
+		public void setNext(Node<E> n) {
+			next = n;
+		}
 	}
 	
 	@Override
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
-		return false;
+		return head == null;
 	}
 
 	@Override
 	public E get(int i) {
-		// TODO Auto-generated method stub
-		return null;
+		int index = 0;
+		Node<E> atIndex = head;
+		while(index != i) {
+			atIndex = atIndex.getNext(); 
+			index++;
+		}
+		return atIndex.getElement();
 	}
 
 	@Override
 	public void add(int i, E e) {
-		// TODO Auto-generated method stub
-
+		Node<E> cur = head.getNext();
+		Node<E> prev = head;
+		int index = 1;
+		while(index != i) {
+			cur = cur.getNext();
+			prev = prev.getNext();
+			index++;
+		}
+		prev.setNext(new Node<E>(e, cur));
 	}
 
 	@Override
 	public E remove(int i) {
-		// TODO Auto-generated method stub
+		Node<E> cur = head.getNext();
+		Node<E> prev = head;
+		int index = 1;
+		while(index != i) {
+			cur = cur.getNext();
+			prev = prev.getNext();
+			index++;
+		}
+		prev.setNext(cur.getNext());
+		size--;
 		return null;
 	}
 
 	@Override
 	public Iterator<E> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ListIterator();
+	}
+	
+	private class ListIterator implements Iterator<E> {
+		Node<E> curr;
+		public ListIterator() {
+			curr = head;
+		}
+		public boolean hasNext() {
+			return curr != null;
+		}
+		@Override
+		public E next() {
+			E res = (E) curr.getElement();
+			curr = curr.getNext();
+			return res;
+		}
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return size;
 	}	
 	
 
 	@Override
 	public E removeFirst() {
-		// TODO Auto-generated method stub
+		head = head.getNext();
+		size--;
 		return null;
 	}
 
 	@Override
 	public E removeLast() {
-		// TODO Auto-generated method stub
+		Node<E> last = head;
+		int index = 0;
+		while(index < size-1) {
+			last = last.getNext();
+			index++;
+		}
+		last.setNext(null);
+		size--;
 		return null;
 	}
 
 	@Override
 	public void addFirst(E e) {
-		// TODO Auto-generated method stub
+		head = new Node<E>(e, head);
+		size++;
 		
 	}
 
 	@Override
 	public void addLast(E e) {
-		// TODO Auto-generated method stub
+		Node<E> newest = new Node<E>(e, null);
+		Node<E> last = head;
 		
+		if(last == null) {
+			head = newest;
+		}
+		else {
+			while(last.getNext() != null) {
+				last = last.getNext();
+			}
+			last.setNext(newest);
+		}
+		size++;
+	}
+	
+	public String toString() {
+		String str = "";
+		int listSize = 0;
+		while(listSize < size) {
+			str += get(listSize);
+			listSize++;
+		}
+		return str;
 	}
 	
 	public static void main(String[] args) {
@@ -78,7 +164,7 @@ public class SinglyLinkedList<E> implements List<E> {
 			sll.addLast(s);
 		}
 		System.out.println(sll.toString());
-
+		
 		sll.removeFirst();
 		System.out.println(sll.toString());
 		
