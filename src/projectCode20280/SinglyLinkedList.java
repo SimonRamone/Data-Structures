@@ -6,7 +6,7 @@ public class SinglyLinkedList<E> implements List<E> {
 
 	private int size;
 	private Node<E> head;
-	
+
 	private static class Node<E> {
 		private E element;
 		private Node<E> next;
@@ -151,7 +151,7 @@ public class SinglyLinkedList<E> implements List<E> {
 		str += last.getElement();
 		while(last.getNext() != null) {
 			last = last.getNext();
-			str += last.getElement();
+			str += " " + last.getElement();
 		}
 		return str;
 	}
@@ -178,6 +178,7 @@ public class SinglyLinkedList<E> implements List<E> {
 		for (String s : sll) {
 			System.out.print(s + ", ");
 		}
+		
 		SinglyLinkedList <Integer> ll = new SinglyLinkedList <Integer>();
 		//LinkedList<Integer>ll=newLinkedList<Integer>();
 		ll.addFirst(0);
