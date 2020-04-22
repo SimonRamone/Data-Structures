@@ -30,12 +30,23 @@ public class ArrayQueue<E> implements Queue<E> {
 			queue[rear] = e;
 			rear++;
 		}
-		else return;
+		else {
+			System.out.println("Array is full.");
+			return;
+		}
 	}
 
 	@Override
 	public E first() {
-		return queue[front];
+		if(!isEmpty())
+			return queue[front];
+		else return null;
+	}
+	
+	public E last() {
+		if(!isEmpty())
+			return queue[rear-1];
+		else return null;
 	}
 
 	@Override
@@ -60,7 +71,7 @@ public class ArrayQueue<E> implements Queue<E> {
 	
 	
 	public static void main(String[] args) {
-		int n = 10;
+		int n = 5;
 		ArrayQueue<Integer> q = new ArrayQueue<Integer>(n);
 		
 		q.enqueue(1);
@@ -84,6 +95,14 @@ public class ArrayQueue<E> implements Queue<E> {
 		System.out.println(q.isEmpty());
 		
 		System.out.println("Size: " + q.size());
-
+		
+		q.enqueue(1);
+		q.enqueue(2);
+		q.enqueue(3);
+		q.enqueue(4);
+		
+		System.out.println(q);
+		System.out.println(q.first());
+		System.out.println(q.last());
 	}
 }
