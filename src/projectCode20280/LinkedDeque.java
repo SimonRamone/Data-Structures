@@ -1,58 +1,70 @@
 package projectCode20280;
 
 public class LinkedDeque<E> implements Deque<E> {
+	
+	DoublyLinkedList<E> list = new DoublyLinkedList<E>();
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		LinkedDeque<Integer> D = new LinkedDeque<Integer>();
+		D.addFirst(1);
+		D.addLast(2);
+		D.addFirst(3);
+		D.addLast(4);
+		D.addFirst(5);
+		D.addLast(6);
+		System.out.println(D);
+		System.out.println(D.removeFirst());
+		System.out.println(D);
+		System.out.println(D.removeLast());
+		System.out.println(D);
+		System.out.println(D.size());
+		System.out.println(D.isEmpty());
+		System.out.println(D.first());
+		System.out.println(D.last());
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return list.size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return list.isEmpty();
 	}
 
 	@Override
 	public E first() {
-		// TODO Auto-generated method stub
-		return null;
+		return list.get(0);
 	}
 
 	@Override
 	public E last() {
-		// TODO Auto-generated method stub
-		return null;
+		return list.get(list.size()-1);
 	}
 
 	@Override
 	public void addFirst(E e) {
-		// TODO Auto-generated method stub
-		
+		list.addFirst(e);
 	}
 
 	@Override
 	public void addLast(E e) {
-		// TODO Auto-generated method stub
-		
+		list.addLast(e);
 	}
 
 	@Override
 	public E removeFirst() {
-		// TODO Auto-generated method stub
-		return null;
+		return list.removeFirst();
 	}
 
 	@Override
 	public E removeLast() {
-		// TODO Auto-generated method stub
-		return null;
+		return list.removeLast();
+	}
+	
+	public String toString() {
+		return list.toString();
 	}
 
 }
