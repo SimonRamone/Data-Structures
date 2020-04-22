@@ -103,9 +103,14 @@ public class SinglyLinkedList<E> implements List<E> {
 
 	@Override
 	public E removeFirst() {
+		E firstElement = head.getElement();
 		head = head.getNext();
 		size--;
-		return null;
+		return firstElement;
+	}
+	
+	public E first() {
+		return head.getElement();
 	}
 
 	@Override
@@ -146,14 +151,16 @@ public class SinglyLinkedList<E> implements List<E> {
 	}
 	
 	public String toString() {
-		String str = "";
+		String str = "[";
 		Node<E> last = head;
-		str += last.getElement();
+		if(size == 1) str += last.getElement();
+		else str += last.getElement() + ", ";
 		while(last.getNext() != null) {
 			last = last.getNext();
-			str += " " + last.getElement();
+			if(last.getNext() == null)str += last.getElement();
+			else str += last.getElement() +", ";
 		}
-		return str;
+		return str +"]";
 	}
 	
 	public static void main(String[] args) {

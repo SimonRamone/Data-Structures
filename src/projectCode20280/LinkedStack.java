@@ -2,39 +2,64 @@ package projectCode20280;
 
 public class LinkedStack<E> implements Stack<E> {
 
+	private SinglyLinkedList<E> list = new SinglyLinkedList<E>();
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		LinkedStack<Integer> S = new LinkedStack<Integer>();
+		System.out.println(S.isEmpty());
+		S.push(1);
+		System.out.println(S);
+		System.out.println(S.isEmpty());
+		S.push(2);
+		S.push(3);
+		System.out.println(S);
+		System.out.println(S.size());
+		S.push(4);
+		S.push(5);
+		System.out.println(S);
+		System.out.println(S.pop());
+		System.out.println(S);
+		S.pop();
+		S.pop();
+		System.out.println(S);
+		System.out.println(S.top());
+		S.pop();
+		S.pop();
+		System.out.println(S.isEmpty());
+		System.out.println(S.size());
+	}
+	
+	public LinkedStack(){
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return list.size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return list.isEmpty();
 	}
 
 	@Override
 	public void push(E e) {
-		// TODO Auto-generated method stub
+		list.addFirst(e);
 		
 	}
 
 	@Override
 	public E top() {
-		// TODO Auto-generated method stub
-		return null;
+		return list.first();
 	}
 
 	@Override
 	public E pop() {
-		// TODO Auto-generated method stub
-		return null;
+		return list.removeFirst();
+	}
+	
+	public String toString() {
+		return list.toString();
 	}
 
 }
