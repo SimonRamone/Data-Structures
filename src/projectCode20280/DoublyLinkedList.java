@@ -61,7 +61,7 @@ public class DoublyLinkedList<E> implements List<E> {
 
 	@Override
 	public boolean isEmpty() {
-		return size==0?true:false;
+		return size == 0;
 	}
 
 	@Override
@@ -193,6 +193,71 @@ public class DoublyLinkedList<E> implements List<E> {
            for(Integer e: ll) {
                    System.out.println("value: " + e);
            }
+           
+   		String[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+   		DoublyLinkedList<String> ll2 = new DoublyLinkedList<String>();
+   		for (String s : alphabet) {
+   			ll2.addFirst(s);
+   			ll2.addLast(s);
+   		}
+   		System.out.println(ll2.toString());
+   		
+   		ll2.removeFirst();
+   		System.out.println(ll2.toString());
+   		
+   		ll2.removeLast();
+   		System.out.println(ll2.toString());
+
+   		ll2.remove(2);
+   		System.out.println(ll2.toString());
+   		
+   		for (String s : ll2) {
+   			System.out.print(s + ", ");
+   		}
+   		
+   		DoublyLinkedList <Integer> ll3 = new DoublyLinkedList <Integer>();
+   		//LinkedList<Integer>ll=newLinkedList<Integer>();
+   		ll3.addFirst(0);
+   		System.out.println(ll3);
+   		ll3.addFirst(1);
+   		System.out.println(ll3);
+   		ll3.addFirst(3);
+   		System.out.println(ll3);
+   		ll3.addFirst(4);
+   		System.out.println(ll3);
+   		ll3.addFirst(5);
+   		System.out.println(ll3);
+   		ll3.add(3, 2);
+   		System.out.println(ll3);
+   		ll3.addFirst(-100);
+   		System.out.println(ll3);
+   		ll3.addLast(100);
+   		System.out.println(ll3);
+   		ll3.removeFirst();
+   		System.out.println(ll3);
+   		ll3.removeLast();
+   		System.out.println(ll3);
+   		
+   		//Removestheiteminthespecifiedindex
+   		ll3.remove(2);
+   		System.out.println(ll3);
+   		ll3.removeFirst();
+   		System.out.println(ll3);
+   		ll3.removeLast();
+   		System.out.println(ll3);
+   		ll3.removeFirst();
+   		System.out.println(ll3);
+   		ll3.addFirst(9999);
+   		System.out.println(ll3);
+   		ll3.addFirst(8888);
+   		System.out.println(ll3);
+   		ll3.addFirst(7777);
+   		System.out.println(ll3);
+   		System.out.println(ll3.get(0));
+   		System.out.println(ll3.get(1));
+   		System.out.println(ll3.get(2));
+   		System.out.println(ll3);
 	}
 
 	
