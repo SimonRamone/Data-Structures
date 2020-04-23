@@ -15,7 +15,7 @@ class LinkedBinaryTreeTest {
 		Position<Integer> l = bt.addLeft(root, 2);
 		
 		bt.remove(bt.root());
-		assertEquals(1, bt.size());		
+		assertEquals(2, bt.size());		
 	}
 
 	@Test
