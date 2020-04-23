@@ -37,13 +37,12 @@ public class SinglyLinkedList<E> implements List<E> {
 
 	@Override
 	public E get(int i) {
-		int index = 0;
-		Node<E> atIndex = head;
-		while(index != i) {
-			atIndex = atIndex.getNext(); 
-			index++;
+		if(i == 0) return head.getElement();
+		Node<E> curr = head;
+		for(int j = 0; j < i; j++) {
+			curr = curr.getNext();
 		}
-		return atIndex.getElement();
+		return curr.element;
 	}
 
 	@Override
@@ -57,6 +56,7 @@ public class SinglyLinkedList<E> implements List<E> {
 			index++;
 		}
 		prev.setNext(new Node<E>(e, cur));
+		size++;
 	}
 
 	@Override
@@ -110,20 +110,34 @@ public class SinglyLinkedList<E> implements List<E> {
 	}
 	
 	public E first() {
-		return head.getElement();
+		if(isEmpty()) return null;
+		else return head.getElement();
 	}
-
+	
+	public E last() {
+		if(isEmpty()) return null;
+		else return get(size - 1);
+	}
+	
 	@Override
 	public E removeLast() {
 		Node<E> last = head;
+		E lastElement;
 		int index = 0;
-		while(index < size-1) {
-			last = last.getNext();
-			index++;
+		if(size() == 1) {
+			lastElement = last.getElement();
+			last = null;
 		}
-		last.setNext(null);
+		else {
+			while(index != size()-2) {
+				last = last.getNext();
+				index++;
+			}
+			lastElement = last();
+			last.setNext(null);
+		}
 		size--;
-		return null;
+		return lastElement;
 	}
 
 	@Override
@@ -151,6 +165,7 @@ public class SinglyLinkedList<E> implements List<E> {
 	}
 	
 	public String toString() {
+		if(isEmpty()) return "";
 		String str = "[";
 		Node<E> last = head;
 		if(size == 1) str += last.getElement();
@@ -205,8 +220,12 @@ public class SinglyLinkedList<E> implements List<E> {
 		ll.addLast(100);
 		System.out.println(ll);
 		ll.removeFirst();
-		System.out.println(ll);
+		System.out.println(ll + " here");
 		ll.removeLast();
+		System.out.println(ll);
+		System.out.println(ll.last());
+		System.out.println(ll);
+		System.out.println(ll.removeLast());
 		System.out.println(ll);
 		
 		//Removestheiteminthespecifiedindex
