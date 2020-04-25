@@ -237,7 +237,10 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
    * @throws IllegalArgumentException if p is not a leaf
    */
   public void attach(Position<E> p, LinkedBinaryTree<E> t1, LinkedBinaryTree<E> t2) throws IllegalArgumentException {
-	//TODO
+	  Node<E> parent = validate(p);
+	  if(parent.getLeft() != null || parent.getRight() != null) throw new IllegalArgumentException("Node is not a leaf");
+	  parent.setLeft(t1.root);
+	  parent.setRight(t2.root);
   }
 
   /**
@@ -249,8 +252,22 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
    * @throws IllegalArgumentException if p has two children.
    */
   public E remove(Position<E> p) throws IllegalArgumentException {
-	return null;
-	//TODO
+	  Node<E> parent = validate(p);
+	  Node<E> child;
+	  if(parent == root) return null;
+	  if(parent.getLeft() != null && parent.getRight() != null) throw new IllegalArgumentException("Node has two children.");
+	  if(parent.getLeft() == null && parent.getRight() == null) {
+		  E old = parent.getElement();
+		  parent = null;
+		  size--;
+		  return old;
+	  }
+	  if(parent.getLeft() != null) child = parent.getLeft();
+	  	else child = parent.getRight();
+	  E old = parent.getElement();
+	  parent = child;
+	  size--;
+	  return old;
   }
   
   public void createLevelOrder(E[] arr) {
@@ -271,11 +288,13 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
   
   public String toString() {
 	  StringBuilder sb = new StringBuilder();
-	  sb.append("[");
+	  String prefix = "[";
 	  for(Position<E> p : positions()) {
+		  sb.append(prefix);
+		  prefix = ", ";
 		  sb.append(p.getElement());
-		  sb.append(", ");
 	  }
+	  
 	  sb.append("]");
 	  return sb.toString();
   }
