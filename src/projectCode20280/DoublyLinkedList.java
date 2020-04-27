@@ -119,7 +119,7 @@ public class DoublyLinkedList<E> implements List<E> {
 			curr = header.getNext();
 		}
 		public boolean hasNext() {
-			return curr != null;
+			return curr != trailer;
 		}
 		public boolean hasPrevious() {
 			return prev != null;
@@ -165,16 +165,31 @@ public class DoublyLinkedList<E> implements List<E> {
 		
 	}
 	
-	public String toString() {
-		String str = "";
-		Node<E> last = header.getNext();
-		str += last.getElement();
-		while(last.getNext().getElement() != null) {
-			last = last.getNext();
-			str += " " + last.getElement();
-		}
-		return str;
+	public E first() {
+		if(isEmpty()) return null;
+		return header.getNext().getElement();
 	}
+
+	public E last() {
+		if(isEmpty()) return null;
+		return trailer.getPrev().getElement();
+	}
+	
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		String prefix = "[";
+		Node<E> current = header;
+		while(current.getNext() != trailer){
+			current = current.getNext();
+			sb.append(prefix);
+			prefix = ", ";
+			E element = current.getElement();
+			sb.append(element);
+		}
+		sb.append("]");
+		return sb.toString();
+	  }
 	
 	public static void main(String[] args) {
 		   DoublyLinkedList<Integer> ll = new DoublyLinkedList<Integer>();
