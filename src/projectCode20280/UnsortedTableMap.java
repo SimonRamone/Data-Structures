@@ -19,6 +19,9 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 	// private utility
 	/** Returns the index of an entry with equal key, or -1 if none found. */
 	private int findIndex(K key) {
+		for(int i = 0; i < table.size(); i++) {
+			if(table.get(i).getKey().equals(key)) return i;
+		}
 		return -1;
 	}
 
@@ -42,8 +45,8 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 	 */
 	@Override
 	public V get(K key) {
-		//TODO
-		return null;
+		if(findIndex(key) == -1) return null;
+		return table.get(findIndex(key)).getValue();
 	}
 
 	/**
@@ -58,8 +61,10 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 	 */
 	@Override
 	public V put(K key, V value) {
-		// TODO
-		return null;
+		if(findIndex(key) == -1) {
+			table.add(new MapEntry<>(key, value));
+			return null;
+		} else return table.get(findIndex(key)).setValue(value);
 	}
 
 	/**
@@ -72,8 +77,11 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 	 */
 	@Override
 	public V remove(K key) {
-		// TODO
-		return null;
+		if(findIndex(key) == -1) return null;
+		V old = table.get(findIndex(key)).getValue();
+		if(findIndex(key) != size()-1) table.set(findIndex(key), table.get(size()-1));
+		table.remove(size()-1);
+		return old;
 	}
 
 	// ---------------- nested EntryIterator class ----------------
@@ -110,5 +118,29 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 	@Override
 	public Iterable<Entry<K, V>> entrySet() {
 		return new EntryIterable();
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		String prefix = "[";
+		for(MapEntry<K, V> v : table){
+				sb.append(prefix);
+				prefix = ", ";
+				sb.append(v.getValue());
+		  }
+		sb.append("]");
+		return sb.toString();
+	  }
+	
+	public static void main(String[] args) {
+		UnsortedTableMap<Integer, Integer> utm = new UnsortedTableMap<>();
+		for(int i = 0; i < 10; i++)
+			utm.put(i, i+1);
+		System.out.println(utm);
+		System.out.println("Get: " + utm.get(3));
+		System.out.println("Remove: " + utm.remove(3));
+		System.out.println(utm);
+		System.out.println("Size: " + utm.size());
+		System.out.println("Find index 10: " + utm.findIndex(10));
 	}
 }
