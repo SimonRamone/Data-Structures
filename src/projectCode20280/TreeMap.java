@@ -138,7 +138,7 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
 	public V get(K key) throws IllegalArgumentException {
 		checkKey(key);
 		Position<Entry<K,V>> p = treeSearch(root(), key);
-		rebalanceAccess(p);
+		//rebalanceAccess(p);
 		if(isExternal(p)) return null;
 		return p.getElement().getValue();
 	}
