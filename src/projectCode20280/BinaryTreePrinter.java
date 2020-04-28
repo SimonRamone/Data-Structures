@@ -12,9 +12,10 @@ import java.util.List;
    @author: Aonghus Lawlor aonghus.lawlor@ucd.ie
  */
 
+//N should be Entry
 public class BinaryTreePrinter< N > {
 
-	private boolean squareBranches = false;
+	private boolean squareBranches = true;
 	private boolean lrAgnostic = false;
 	private int hspace = 2;
 	//private int tspace = 1;
