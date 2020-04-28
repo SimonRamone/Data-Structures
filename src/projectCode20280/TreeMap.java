@@ -425,9 +425,5 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
 		// TODO Auto-generated method stub
 		
 	}
-	
-    protected void rotate(Position<Entry<K, V>> p) {
 
-    }
-    
 }
