@@ -35,20 +35,23 @@ public class AVLTreeMap<K, V> extends TreeMap<K, V> {
 	 * Recomputes the height of the given position based on its children's heights.
 	 */
 	protected void recomputeHeight(Position<Entry<K, V>> p) {
-		// TODO
+		int max = height(left(p))>height(right(p))?height(left(p)):height(right(p));
+		tree.setAux(p, 1+max);
 
 	}
 
 	/** Returns whether a position has balance factor between -1 and 1 inclusive. */
 	protected boolean isBalanced(Position<Entry<K, V>> p) {
-		// TODO
-		return false;
+		return Math.abs(height(left(p))-height(right(p))) <= 1;
 	}
 
 	/** Returns a child of p with height no smaller than that of the other child. */
 	protected Position<Entry<K, V>> tallerChild(Position<Entry<K, V>> p) {
-		// TODO
-		return null;
+		if(height(left(p)) > height(right(p))) return left(p);
+		if(height(left(p)) < height(right(p))) return right(p);
+		if(isRoot(p)) return left(p);
+		if(p == left(parent(p))) return left(p);
+			else return right(p);
 	}
 
 	/**
@@ -57,20 +60,30 @@ public class AVLTreeMap<K, V> extends TreeMap<K, V> {
 	 * imbalance is found, continuing until balance is restored.
 	 */
 	protected void rebalance(Position<Entry<K, V>> p) {
-		// TODO
-		return;
+		int oldHeight, newHeight;
+		do {
+			oldHeight = height(p);
+			if(!isBalanced(p)) {
+				p = tree.restructure(tallerChild(tallerChild(p)));
+				recomputeHeight(left(p));
+				recomputeHeight(right(p));
+			}
+			recomputeHeight(p);
+			newHeight = height(p);
+			p = parent(p);
+		} while (oldHeight != newHeight && p != null);
 	}
 
 	/** Overrides the TreeMap rebalancing hook that is called after an insertion. */
 	@Override
 	protected void rebalanceInsert(Position<Entry<K, V>> p) {
-		// TODO
+		rebalance(p);
 	}
 
 	/** Overrides the TreeMap rebalancing hook that is called after a deletion. */
 	@Override
 	protected void rebalanceDelete(Position<Entry<K, V>> p) {
-		// TODO
+		if(!isRoot(p)) rebalance(parent(p));
 	}
 
 	/** Ensure that current tree structure is valid AVL (for debug use only). */
@@ -89,12 +102,13 @@ public class AVLTreeMap<K, V> extends TreeMap<K, V> {
 		return true;
 	}
 
-	/*
-	public String toBinaryTreeString() {
-		BinaryTreePrinter< Entry<K, V> > btp = new BinaryTreePrinter<>( (LinkedBinaryTree<Entry<K, V>>) this.tree);		
-		return btp.print();	
-	}
-	*/
+	
+//	public String toBinaryTreeString() {
+//		BinaryTreePrinter< Entry<K, V> > btp = new BinaryTreePrinter<>( (LinkedBinaryTree<Entry<K, V>>) this.tree);		
+//		return btp.print();	
+//	}
+	
+	
 	
 	public static void main(String [] args) {
 		AVLTreeMap<Integer, Integer> avl = new AVLTreeMap<>();
@@ -104,7 +118,7 @@ public class AVLTreeMap<K, V> extends TreeMap<K, V> {
 		}
 
 		System.out.println("avl: " + avl);
-		
+
 		avl.remove(arr[0]);
 
 		System.out.println("avl: " + avl);
